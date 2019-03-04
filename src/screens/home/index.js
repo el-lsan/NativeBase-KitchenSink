@@ -1,45 +1,29 @@
 import React, { Component } from "react";
-import { ImageBackground, View, StatusBar } from "react-native";
-import { Container, Button, H3, Text } from "native-base";
-
-import styles from "./styles";
-
-const launchscreenBg = require("../../../assets/launchscreen-bg.png");
-const launchscreenLogo = require("../../../assets/logo-kitchen-sink.png");
+import { Platform, StyleSheet } from "react-native";
+import { Item, Icon, Input, Header } from "native-base";
 
 class Home extends Component {
   render() {
     return (
-      <Container>
-        <StatusBar barStyle="light-content" />
-        <ImageBackground source={launchscreenBg} style={styles.imageContainer}>
-          <View style={styles.logoContainer}>
-            <ImageBackground source={launchscreenLogo} style={styles.logo} />
-          </View>
-          <View
-            style={{
-              alignItems: "center",
-              marginBottom: 50,
-              backgroundColor: "transparent"
-            }}
-          >
-            <H3 style={styles.text}>App to showcase</H3>
-            <View style={{ marginTop: 8 }} />
-            <H3 style={styles.text}>NativeBase components</H3>
-            <View style={{ marginTop: 8 }} />
-          </View>
-          <View style={{ marginBottom: 80 }}>
-            <Button
-              style={{ backgroundColor: "#6FAF98", alignSelf: "center" }}
-              onPress={() => this.props.navigation.openDrawer()}
-            >
-              <Text>Lets Go!</Text>
-            </Button>
-          </View>
-        </ImageBackground>
-      </Container>
+      <Header style={styles.header} searchBar rounded>
+        <Item>
+          <Icon name="ios-search" />
+          <Input
+            returnKeyType="search"
+            placeholder="Search"
+          />
+        </Item>
+      </Header>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  header: {
+    height: 40,
+    paddingTop: Platform.OS === 'ios' ? 0 : 30, //!!!! removing this line would fix the "Invariant Violation" error but the stying would be broken
+    paddingBottom: Platform.OS === 'ios' ? 0 : 30,
+  },
+});
 
 export default Home;
